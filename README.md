@@ -1,6 +1,6 @@
 # 42 C++ Modules
 
-This repository contains my solutions for the **C++ Modules** project at [École 42](https://42istanbul.com.tr/).  
+This repository contains my solutions for the **C++ Modules** project at [École 42 Türkiye](https://42istanbul.com.tr/).  
 The goal of this project is to introduce object-oriented programming in C++ and progressively explore key concepts such as classes, inheritance, polymorphism, memory management, and templates.
 
 ---
