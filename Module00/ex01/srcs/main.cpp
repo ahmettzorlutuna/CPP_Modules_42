@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: azorlutu <azorlutu@student.42istanbul.com.tr>   +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/20 23:45:43 by azorlutu          #+#    #+#             */
+/*   Updated: 2026/01/20 23:45:44 by azorlutu         ###   ########.tr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <iostream>
 
 #include "../includes/PhoneBook.hpp"
@@ -8,11 +20,18 @@ int main(int argc, char **argv)
     PhoneBook phonebook;
     std::string command;
     
-    if(argc != 1 || argv[1] != NULL)
+    (void) argv; // To avoid unused parameter warning
+    if(argc != 1)
         std::cout << "This program does not accept any arguments." << std::endl;
     while (true)
     {
+        if(std::cin.eof())
+        {
+            std::cout << "\nEnd of input detected. Exiting program." << std::endl;
+            break;
+        }
         std::cout << "Enter a command (ADD, SEARCH, EXIT): ";
+        
         if (!std::getline(std::cin, command))
         {
             std::cout << "\nEnd of input detected. Exiting program." << std::endl;

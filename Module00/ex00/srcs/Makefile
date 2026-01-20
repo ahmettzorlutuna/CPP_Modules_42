@@ -1,13 +1,14 @@
-# $@ → o an üretilen hedefin adı
-# $^ → tüm bağımlılıklar
-# $< → ilk bağımlılıklar (özellikle pattern rule’da)
-
-# Build flow summary
-# You type make → the default target is all: $(NAME) → so megaphone is requested.
-# make checks: “megaphone depends on megaphone.o.”
-# If megaphone.o does not exist (or is older than the source), the pattern rule %.o: %.cpp is triggered.
-# megaphone.cpp is compiled → produces megaphone.o.
-# Then megaphone.o is linked → produces the final executable megaphone.
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#   By: azorlutu <azorlutu@student.42istanbul.com.tr>   +:+       +#+          #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2026/01/20 23:47:18 by azorlutu          #+#    #+#              #
+#    Updated: 2026/01/20 23:47:19 by azorlutu         ###   ########.tr        #
+#                                                                              #
+# **************************************************************************** #
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98

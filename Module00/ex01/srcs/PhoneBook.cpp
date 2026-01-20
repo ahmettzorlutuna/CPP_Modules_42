@@ -1,6 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   PhoneBook.cpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: azorlutu <azorlutu@student.42istanbul.com.tr>   +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/20 23:46:15 by azorlutu          #+#    #+#             */
+/*   Updated: 2026/01/20 23:46:16 by azorlutu         ###   ########.tr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/PhoneBook.hpp"
 #include "../includes/Validator.hpp"
+
 #include <iostream>
+#include <iomanip>
 
 PhoneBook::PhoneBook()
 {
@@ -14,10 +28,15 @@ void PhoneBook::add_contact(void)
     std::string first_name, last_name, nickname, phone_number, darkest_secret;
     
     first_name = ask_until_valid("Enter first name: ", is_alpha_only, "First name must contain only alphabetic characters. Please try again.");
+    if(std::cin.eof())  return;
     last_name = ask_until_valid("Enter last name: ", is_alpha_only, "Last name must contain only alphabetic characters. Please try again.");
+    if(std::cin.eof())  return;
     nickname = ask_until_valid("Enter nickname: ", is_nickname_valid, "Nickname must be at least 2 characters long and contain only alphanumeric characters or underscores. Please try again.");
+    if(std::cin.eof())  return;
     phone_number = ask_until_valid("Enter phone number: ", is_digit_only, "Phone number must contain only numeric characters. Please try again.");
+    if(std::cin.eof())  return;
     darkest_secret = ask_until_valid("Enter darkest secret: ", is_secret_valid, "Darkest secret must contain at least one non-space character. Please try again.");
+    if(std::cin.eof())  return;
     
     int index = this->_next_index;
     this->_contacts[index].setAllFields(first_name, last_name, nickname, phone_number, darkest_secret);
@@ -28,5 +47,20 @@ void PhoneBook::add_contact(void)
 
 void PhoneBook::search_contact(void) const
 {
+    if (this->_contact_count == 0)
+    {
+        std::cout << "PhoneBook is empty. Please add contacts first." <<  std::endl;
+        return;
+    }
+    std::cout << "|     Index|First Name| Last Name|  Nickname|" << std::endl;
+    std::cout << "-------------------------------------------" << std::endl;
+    for (int i = 0; i < this->_contact_count; ++i)
+    {
+        std::cout << "|" << std::setw(10) << i << "|";
+        std::cout << std::setw(10) << truncate_field(this->_contacts[i].get_first_name()) << "|";
+        std::cout << std::setw(10) << truncate_field(this->_contacts[i].get_last_name()) << "|";
+        std::cout << std::setw(10) << truncate_field(this->_contacts[i].get_nickname()) << "|" << std::endl;
+    }
+    std::cout << "-------------------------------------------" << std::endl;
     return;
 }
