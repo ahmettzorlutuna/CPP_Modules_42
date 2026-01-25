@@ -20,11 +20,9 @@ OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)
 
-# Link stage: .o -> megaphone
 $(NAME): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-# .cpp -> .o rule (compiling)
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
