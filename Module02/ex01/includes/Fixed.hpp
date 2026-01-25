@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -14,17 +15,16 @@
 #define FIXED_HPP
 
 #include <iostream>
-#include <cmath>
 
 class Fixed
 {
     public:
         Fixed();
+        Fixed(const Fixed &fixedNum);
+        Fixed &operator=(const Fixed &fixedNum);
+        ~Fixed();
         Fixed(const int intNum);
         Fixed(const float floatNum);
-        Fixed(const Fixed &fixedNum);
-        ~Fixed();
-        Fixed &operator=(const Fixed &fixedNum);
         int     getRawBits( void ) const;
         void    setRawBits( int const raw );
         float   toFloat( void ) const;

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/Fixed.hpp"
+#include <cmath>
 
 Fixed::Fixed() : _fixedPointValue(0)
 {
@@ -53,9 +54,9 @@ int Fixed::getRawBits( void ) const
     return this->_fixedPointValue;
 }
 
-void Fixed::setRawBits( int const raw )
+void Fixed::setRawBits( int const value )
 {
-    this->_fixedPointValue = raw;
+    this->_fixedPointValue = value;
 }
 
 float Fixed::toFloat( void ) const
