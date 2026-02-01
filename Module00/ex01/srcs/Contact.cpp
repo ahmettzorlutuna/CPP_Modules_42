@@ -14,16 +14,11 @@
 #include <iostream>
 
 Contact::Contact(){
-    this->_isSet = false;
     this->_first_name = "";
     this->_last_name = "";
     this->_nickname = "";
     this->_phone_number = "";
     this->_darkest_secret = "";
-}
-
-bool Contact::isSet() const {
-    return _isSet;
 }
 
 void Contact::setAllFields(std::string fn, std::string ln, std::string nn, std::string pn, std::string ds){
@@ -32,7 +27,6 @@ void Contact::setAllFields(std::string fn, std::string ln, std::string nn, std::
     _nickname = nn;
     _phone_number = pn;
     _darkest_secret = ds;
-    _isSet = true;
 }
 
 std::string Contact::get_first_name(void) const {

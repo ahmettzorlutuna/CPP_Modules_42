@@ -20,6 +20,7 @@ class PhoneBook {
     PhoneBook();
     void add_contact(void);
     void search_contact(void) const;
+    void search_detail(const std::string& command) const;
 
    private:
     Contact _contacts[8];

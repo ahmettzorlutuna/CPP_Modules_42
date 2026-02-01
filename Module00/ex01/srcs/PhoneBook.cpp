@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <sstream>
 
 PhoneBook::PhoneBook()
 {
@@ -63,4 +64,26 @@ void PhoneBook::search_contact(void) const
     }
     std::cout << "-------------------------------------------" << std::endl;
     return;
+}
+
+void PhoneBook::search_detail(const std::string& command) const
+{
+    if( this->_contact_count == 0)
+    {
+        std::cout << "PhoneBook is empty. Please add contacts first." <<  std::endl;
+        return;
+    }
+    int index;
+    std::stringstream ss(command);
+    ss >> index;
+    if (index < 0 || index >= this->_contact_count)
+    {
+        std::cout << "Index out of range. Please enter a valid index between 0 and " << this->_contact_count - 1 << "." << std::endl;
+        return;
+    }
+    std::cout << "First Name: " << this->_contacts[index].get_first_name() << std::endl;
+    std::cout << "Last Name: " << this->_contacts[index].get_last_name() << std::endl;
+    std::cout << "Nickname: " << this->_contacts[index].get_nickname() << std::endl;
+    std::cout << "Phone Number: " << this->_contacts[index].get_phone_number() << std::endl;
+    std::cout << "Darkest Secret: " << this->_contacts[index].get_darkest_secret() << std::endl;
 }

@@ -14,13 +14,14 @@
 
 #include "../includes/PhoneBook.hpp"
 #include "../includes/Contact.hpp"
+#include "../includes/Validator.hpp"
 
 int main(int argc, char **argv)
 {
     PhoneBook phonebook;
     std::string command;
     
-    (void) argv; // To avoid unused parameter warning
+    (void) argv;
     if(argc != 1)
         std::cout << "This program does not accept any arguments." << std::endl;
     while (true)
@@ -41,6 +42,8 @@ int main(int argc, char **argv)
             phonebook.add_contact();
         else if (command == "SEARCH")
             phonebook.search_contact();
+        else if(is_digit_only(command))
+            phonebook.search_detail(command);
         else if (command == "EXIT")
         {
             std::cout << "Exiting program." << std::endl;

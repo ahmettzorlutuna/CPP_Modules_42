@@ -19,7 +19,6 @@ class Contact {
    public:
 	Contact();
 	void setAllFields(std::string fn, std::string ln, std::string nn, std::string pn, std::string ds);
-	bool isSet() const;
 
     std::string get_first_name(void) const;
     std::string get_last_name(void) const;
@@ -28,7 +27,6 @@ class Contact {
     std::string get_darkest_secret(void) const;
 	
     private:
-		bool _isSet;
 		std::string _first_name;
 		std::string _last_name;
 		std::string _nickname;
