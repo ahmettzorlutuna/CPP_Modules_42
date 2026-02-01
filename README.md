@@ -237,7 +237,7 @@ All exercises are compiled with strict flags to ensure code quality:
 
 ## 👨‍💻 Author
 
-**Ahmet Zorlu Tuna**  
+**Ahmet Zorlutuna**  
 École 42 İstanbul Student
 
 ---
