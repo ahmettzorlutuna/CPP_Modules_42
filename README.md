@@ -50,6 +50,11 @@ CPP_Modules_42/
 │   ├── ex01/         # ScavTrap
 │   ├── ex02/         # FragTrap
 │   └── ex03/         # DiamondTrap
+├── Module04/          # Subtype Polymorphism & Interfaces
+│   ├── ex00/         # Polymorphism
+│   ├── ex01/         # I don't want to set the world on fire
+│   ├── ex02/         # Abstract class
+│   └── ex03/         # Interface & recap
 └── README.md
 ```
 
@@ -110,6 +115,20 @@ CPP_Modules_42/
 - **ex03 - DiamondTrap:** Multiple inheritance from both `ScavTrap` and `FragTrap`, demonstrating the diamond problem resolution
 
 **Skills:** Class inheritance, method overriding, virtual functions, multiple inheritance, diamond problem
+
+---
+
+### Module 04: Subtype Polymorphism, Abstract Classes, and Interfaces
+
+**Key Concepts:** Subtype polymorphism, virtual functions, abstract classes, interfaces, deep copy, memory management with composition
+
+#### Exercises:
+- **ex00 - Polymorphism:** Basic implementation of `Animal` base class with derived `Dog` and `Cat` classes demonstrating virtual functions and polymorphic behavior. Includes `WrongAnimal` and `WrongCat` to show the importance of virtual destructors
+- **ex01 - I don't want to set the world on fire:** Extending the Animal hierarchy with a `Brain` class (containing 100 ideas). `Dog` and `Cat` now contain a `Brain*` attribute, demonstrating deep copy vs shallow copy in copy constructors and assignment operators
+- **ex02 - Abstract class:** Refactoring `Animal` into `AAnimal` (abstract animal) by making `makeSound()` pure virtual. This prevents instantiation of the base class, enforcing derived classes to implement the behavior
+- **ex03 - Interface & recap:** Complete interface implementation with `AMateria` abstract class, concrete `Ice` and `Cure` classes, `ICharacter` and `Character` classes for inventory management, and `IMateriaSource`/`MateriaSource` for materia creation. Demonstrates proper memory management with floor-dropped items to prevent leaks
+
+**Skills:** Virtual functions and polymorphism, abstract classes and pure virtual functions, interface design, deep copy implementation, composition and aggregation, proper memory management in complex hierarchies
 
 ---
 
@@ -213,6 +232,14 @@ All exercises are compiled with strict flags to ensure code quality:
 ✓ Virtual functions and method overriding  
 ✓ Diamond inheritance problem  
 ✓ Constructor/destructor call order in inheritance
+
+### Module 04
+✓ Subtype polymorphism with virtual functions  
+✓ Abstract classes and pure virtual functions  
+✓ Interface design and implementation  
+✓ Deep copy vs shallow copy  
+✓ Composition and memory management  
+✓ Proper cleanup in complex object hierarchies
 
 ---
 
