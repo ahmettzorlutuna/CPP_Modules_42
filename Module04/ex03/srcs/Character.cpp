@@ -32,6 +32,7 @@ Character::~Character() {
 Character::Character(Character const &other)
 {
     _name = other._name;
+    _floorCount = 0;
     for (int i = 0; i < 4; i++) {
         if (other._inventory[i])
             _inventory[i] = other._inventory[i]->clone();
@@ -53,6 +54,10 @@ Character& Character::operator=(Character const &other)
             else
                 _inventory[i] = NULL;
         }
+        for (int i = 0; i < _floorCount; i++)
+            if (_floor[i])
+                delete _floor[i];
+        _floorCount = 0;
     }
     return *this;
 }
@@ -68,7 +73,7 @@ std::string const &Character::getName() const
     return this->_name;
 }
 
-void Character::equip(AMateria* materia)
+void Character::    equip(AMateria* materia)
 {
     if(!materia) return;
 
@@ -80,14 +85,23 @@ void Character::equip(AMateria* materia)
         }
         if (_inventory[i] == NULL) {
             _inventory[i] = materia;
-            break;
+            return;
         }
+    }
+
+    if (this->_floorCount < 100) {
+        std::cout << "Inventory full. Storing materia on the floor." << std::endl;
+        this->_floor[this->_floorCount++] = materia;
+    }
+    else {
+        std::cout << "Floor is also full. Materia deleted to prevent memory leak." << std::endl;
+        delete materia;
     }
 }
 
 void Character::unequip(int index)
 {
-    if (index >= 0 && index < 4 && _inventory[index] != NULL)
+    if (index >= 0 && index < 4 && _inventory[index] != NULL && _floorCount < 100)
     {
         this->_floor[_floorCount++] = _inventory[index];
         _inventory[index] = NULL;
