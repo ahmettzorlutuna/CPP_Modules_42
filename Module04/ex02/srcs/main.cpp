@@ -19,7 +19,7 @@
 int main() {
     std::cout << "--- 1. ABSTRACT CLASS INSTANTIATION TEST ---" << std::endl;
 
-    AAnimal test;
+    //AAnimal test;
 
     std::cout << "Cannot instantiate Animal directly. Check!" << std::endl;
 
