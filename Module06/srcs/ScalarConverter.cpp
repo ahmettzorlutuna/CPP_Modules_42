@@ -33,7 +33,7 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other)
     return *this;
 }
 
-void ScalarConverter::checkSpecialCases(const std::string& literal)
+bool ScalarConverter::checkSpecialCases(const std::string& literal)
 {
     if(literal == "nan" || literal == "nanf" ||
        literal == "+inf" || literal == "+inff" ||
@@ -52,12 +52,13 @@ void ScalarConverter::checkSpecialCases(const std::string& literal)
             std::cout << "double: +inf" << std::endl;
         }
         else
-        {
+        {   
             std::cout << "float: -inff" << std::endl;
             std::cout << "double: -inf" << std::endl;
         }
-        return;
+        return true;
     }
+    return false;
 }
 
 bool ScalarConverter::isChar(const std::string& literal)
@@ -65,7 +66,7 @@ bool ScalarConverter::isChar(const std::string& literal)
     return (literal.length() == 1 && !std::isdigit(literal[0]));
 }
 
-bool isInt(const std::string& literal)
+bool ScalarConverter::isInt(const std::string& literal)
 {
     size_t i;
 
@@ -85,15 +86,55 @@ bool ScalarConverter::hasValidDecimalFormat(const std::string& literal, size_t s
     bool hasDecimalPoint = false;
     size_t length = literal.length();
 
-    if(hasF && literal.back() == 'f');
+    if(hasF && literal[literal.length() - 1] == 'f')
         length--;
+    for(size_t i = start; i < length; i++)
+    {
+        if(literal[i] == '.')
+        {
+            if(hasDecimalPoint)
+                return false;
+            hasDecimalPoint = true;
+        }
+        else if(!std::isdigit(literal[i]))
+            return false;
+    }
+    return hasDecimalPoint;
+}
+
+bool ScalarConverter::isFloat(const std::string& literal)
+{
+    if(literal[literal.length() - 1] != 'f')
+        return false;
+    size_t start = 0;
+    if(literal[start] == '-' || literal[start] == '+')
+        start++;
+    return hasValidDecimalFormat(literal, start, true);
+}
+
+bool ScalarConverter::isDouble(const std::string& literal)
+{
+    if(literal[literal.length() - 1] == 'f')
+        return false;
+    size_t start = 0;
+    if(literal[start] == '-' || literal[start] == '+')
+        start++;
+    return hasValidDecimalFormat(literal, start, false);
 }
 
 
 void ScalarConverter::convert(const std::string& literal)
 {
-    checkSpecialCases(literal);
+    if(checkSpecialCases(literal))
+        return;
     if(isChar(literal))
         std::cout << "Literal is a char." << std::endl;
-    std::cout << "Converting literal: " << literal << std::endl;
+    else if(isInt(literal))
+        std::cout << "Literal is an int." << std::endl;
+    else if(isFloat(literal))
+        std::cout << "Literal is a float." << std::endl;
+    else if(isDouble(literal))
+        std::cout << "Literal is a double." << std::endl;
+    else
+        std::cout << "Unknown literal: " << literal << std::endl;
 }

@@ -15,6 +15,9 @@
 
 #include <iostream>
 
+#define ARGC_ERROR 1;
+#define SPECIAL_CASES 2;
+
 class ScalarConverter
 {
     private:
@@ -22,12 +25,12 @@ class ScalarConverter
         ~ScalarConverter();
         ScalarConverter(const ScalarConverter& other);
         ScalarConverter& operator=(const ScalarConverter& other);
-        static void checkSpecialCases(const std::string& literal);
         static bool hasValidDecimalFormat(const std::string& literal, size_t start, bool hasF);
         static bool isChar(const std::string& literal);
         static bool isInt(const std::string& literal);
         static bool isFloat(const std::string& literal);
         static bool isDouble(const std::string& literal);
+        static bool checkSpecialCases(const std::string& literal);
     public:
         static void convert(const std::string& literal);
 };
