@@ -140,8 +140,15 @@ void ScalarConverter::printInt(double value)
     std::cout << "int: ";
     if(std::isnan(value) || value < static_cast<double>(INT_MIN) || value > static_cast<double>(INT_MAX))
         std::cout << "impossible" << std::endl;
+    else if (value < std::numeric_limits<int>::min() || value > std::numeric_limits<int>::max())
+    {
+        std::cout << "impossible" << std::endl;
+    }
     else
+    {
         std::cout << static_cast<int>(value) << std::endl;
+    }
+    
 }
 
 void ScalarConverter::printFloat(double value)
@@ -170,26 +177,32 @@ void ScalarConverter::printDouble(double value)
 
 void ScalarConverter::convert(const std::string& literal)
 {
-    if(checkSpecialCases(literal))
-        return;
+    if (checkSpecialCases(literal)) return;
 
-    double value;
+    char *endPtr;
 
-    if(isChar(literal))
-        value = static_cast<double>(literal[0]);
-    else if(isInt(literal))
-        value = static_cast<double>(std::stoi(literal));
-    else if(isFloat(literal))
-        value = static_cast<double>(std::stof(literal));
-    else if(isDouble(literal))
-        value = std::stod(literal);
-    else
-    {
-        std::cerr << "Error: Invalid literal format." << std::endl;
+    if (isChar(literal)) {
+        double d = static_cast<double>(literal[0]);
+        printChar(d);
+        printInt(d);
+        printFloat(d);
+        printDouble(d);
         return;
     }
-    printChar(value);
-    printInt(value);
-    printFloat(value);
-    printDouble(value);
+
+    double doubleValue = std::strtod(literal.c_str(), &endPtr);
+
+    if (*endPtr != '\0') {
+        if (!(*endPtr == 'f' && *(endPtr + 1) == '\0')) {
+            std::cout << "char: impossible" << std::endl;
+            std::cout << "int: impossible" << std::endl;
+            std::cout << "float: impossible" << std::endl;
+            std::cout << "double: impossible" << std::endl;
+            return;
+        }
+    }
+    printChar(doubleValue);
+    printInt(doubleValue);
+    printFloat(doubleValue);
+    printDouble(doubleValue);
 }
