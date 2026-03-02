@@ -31,6 +31,10 @@ class ScalarConverter
         static bool isFloat(const std::string& literal);
         static bool isDouble(const std::string& literal);
         static bool checkSpecialCases(const std::string& literal);
+        static void printChar(double value);
+        static void printInt(double value);
+        static void printFloat(double value);
+        static void printDouble(double value);
     public:
         static void convert(const std::string& literal);
 };

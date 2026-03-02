@@ -13,6 +13,8 @@
 #include "../includes/ScalarConverter.hpp"
 
 #include <cctype>
+#include <cfloat>
+#include <iomanip>
 
 ScalarConverter::ScalarConverter()
 {
@@ -122,19 +124,72 @@ bool ScalarConverter::isDouble(const std::string& literal)
     return hasValidDecimalFormat(literal, start, false);
 }
 
+void ScalarConverter::printChar(double value)
+{
+    std::cout << "char: ";
+    if(std::isnan(value) || value < 0 || value > 127)
+        std::cout << "impossible" << std::endl;
+    else if(std::isprint(static_cast<char>(value)))
+        std::cout << "'" << static_cast<char>(value) << "'" << std::endl;
+    else
+        std::cout << "Non displayable" << std::endl;
+}
+
+void ScalarConverter::printInt(double value)
+{
+    std::cout << "int: ";
+    if(std::isnan(value) || value < static_cast<double>(INT_MIN) || value > static_cast<double>(INT_MAX))
+        std::cout << "impossible" << std::endl;
+    else
+        std::cout << static_cast<int>(value) << std::endl;
+}
+
+void ScalarConverter::printFloat(double value)
+{
+    std::cout << "float: ";
+    if(std::isnan(value) || value < -FLT_MAX || value > FLT_MAX)
+        std::cout << "impossible" << std::endl;
+    else
+    {
+        std::cout << std::fixed << std::setprecision(1) 
+                << static_cast<float>(value) << "f" << std::endl;
+    }
+}
+
+void ScalarConverter::printDouble(double value)
+{
+    std::cout << "double: ";
+    if(std::isnan(value) || value < -DBL_MAX || value > DBL_MAX)
+        std::cout << "impossible" << std::endl;
+    else
+    {
+        std::cout << std::fixed << std::setprecision(1) 
+                << static_cast<double>(value) << std::endl;
+    }
+}
 
 void ScalarConverter::convert(const std::string& literal)
 {
     if(checkSpecialCases(literal))
         return;
+
+    double value;
+
     if(isChar(literal))
-        std::cout << "Literal is a char." << std::endl;
+        value = static_cast<double>(literal[0]);
     else if(isInt(literal))
-        std::cout << "Literal is an int." << std::endl;
+        value = static_cast<double>(std::stoi(literal));
     else if(isFloat(literal))
-        std::cout << "Literal is a float." << std::endl;
+        value = static_cast<double>(std::stof(literal));
     else if(isDouble(literal))
-        std::cout << "Literal is a double." << std::endl;
+        value = std::stod(literal);
     else
-        std::cout << "Unknown literal: " << literal << std::endl;
+    {
+        std::cerr << "Error: Invalid literal format." << std::endl;
+        return;
+    }
+    printChar(value);
+    printInt(value);
+    printFloat(value);
+    printDouble(value);
 }
