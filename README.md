@@ -55,6 +55,15 @@ CPP_Modules_42/
 │   ├── ex01/         # I don't want to set the world on fire
 │   ├── ex02/         # Abstract class
 │   └── ex03/         # Interface & recap
+├── Module05/          # Repetition & Exceptions
+│   ├── ex00/         # Mommy, when I grow up, I want to be a bureaucrat
+│   ├── ex01/         # Form up, maggots!
+│   ├── ex02/         # No, you need form 28B, not 28C
+│   └── ex03/         # At least this beats coffee-making
+├── Module06/          # C++ Casts
+│   ├── ex00/         # Conversion of scalar types
+│   ├── ex01/         # Serialization
+│   └── ex02/         # Identify real type of objects
 └── README.md
 ```
 
@@ -129,6 +138,33 @@ CPP_Modules_42/
 - **ex03 - Interface & recap:** Complete interface implementation with `AMateria` abstract class, concrete `Ice` and `Cure` classes, `ICharacter` and `Character` classes for inventory management, and `IMateriaSource`/`MateriaSource` for materia creation. Demonstrates proper memory management with floor-dropped items to prevent leaks
 
 **Skills:** Virtual functions and polymorphism, abstract classes and pure virtual functions, interface design, deep copy implementation, composition and aggregation, proper memory management in complex hierarchies
+
+---
+
+### Module 05: Repetition and Exceptions
+
+**Key Concepts:** C++ exception handling (try/catch/throw), custom exception classes, exception hierarchies, form signing workflows
+
+#### Exercises:
+- **ex00 - Mommy, when I grow up, I want to be a bureaucrat:** `Bureaucrat` class with a constant name and a grade (1 highest, 150 lowest). Throws `GradeTooHighException` or `GradeTooLowException` when grade is out of bounds; demonstrates basic exception design
+- **ex01 - Form up, maggots!:** `Form` class with grade requirements to sign and execute. `Bureaucrat::signForm()` attempts to sign a form and catches exceptions, showcasing interaction between classes through exceptions
+- **ex02 - No, you need form 28B, not 28C:** `AForm` abstract base class replaces `Form`. Concrete forms `ShrubberyCreationForm`, `RobotomyRequestForm`, and `PresidentialPardonForm` each implement `execute()` with distinct behaviors (creates ASCII trees, robotomizes with 50% success, grants presidential pardon)
+- **ex03 - At least this beats coffee-making:** `Intern` class with a `makeForm()` method that creates the correct `AForm` subclass by name without using if-else chains, using an array of form-factory function pointers
+
+**Skills:** Exception handling and custom exception types, abstract classes with pure virtual functions, factory pattern, working with dynamic memory in polymorphic hierarchies
+
+---
+
+### Module 06: C++ Casts
+
+**Key Concepts:** C++ explicit type casts (`static_cast`, `dynamic_cast`, `reinterpret_cast`), type conversion, serialization, run-time type identification (RTTI)
+
+#### Exercises:
+- **ex00 - Conversion of scalar types:** `ScalarConverter` utility class (non-instantiable) with a static `convert()` method that parses a string literal and prints its value as `char`, `int`, `float`, and `double`. Handles special floating-point values (`nan`, `inf`, `-inf`) and edge cases
+- **ex01 - Serialization:** `Serializer` utility class with static `serialize(Data*)` and `deserialize(uintptr_t)` methods using `reinterpret_cast` to convert a pointer to an integer and back, demonstrating low-level pointer manipulation
+- **ex02 - Identify real type of objects:** `Base` class with virtual destructor and three empty derived classes `A`, `B`, `C`. Two `identify()` functions determine the actual dynamic type at run time — one using a pointer (try `dynamic_cast`) and one using a reference (catch bad cast)
+
+**Skills:** C++ cast operators, scalar type conversion and overflow detection, `reinterpret_cast` for serialization, `dynamic_cast` and RTTI for type identification
 
 ---
 
@@ -240,6 +276,20 @@ All exercises are compiled with strict flags to ensure code quality:
 ✓ Deep copy vs shallow copy  
 ✓ Composition and memory management  
 ✓ Proper cleanup in complex object hierarchies
+
+### Module 05
+✓ Exception handling with try/catch/throw  
+✓ Custom exception classes and inheritance  
+✓ Interaction between classes through exceptions  
+✓ Abstract forms and concrete implementations  
+✓ Factory pattern without if-else chains
+
+### Module 06
+✓ `static_cast`, `dynamic_cast`, `reinterpret_cast`  
+✓ Scalar type conversion and edge cases  
+✓ Pointer serialization with `reinterpret_cast`  
+✓ Run-time type identification (RTTI) with `dynamic_cast`  
+✓ Non-instantiable utility classes
 
 ---
 
