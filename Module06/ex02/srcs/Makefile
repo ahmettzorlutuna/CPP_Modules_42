@@ -13,9 +13,9 @@
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-NAME  = reinterpret_cast
+NAME  = dynamic_cast
 
-SRCS = main.cpp Base.cpp A.cpp B.cpp C.cpp
+SRCS = main.cpp Base.cpp A.cpp B.cpp C.cpp Utils.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
