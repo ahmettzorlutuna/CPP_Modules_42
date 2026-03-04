@@ -15,7 +15,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 NAME  = whatever
 
-SRCS = main.cpp whatever.cpp
+SRCS = main.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
