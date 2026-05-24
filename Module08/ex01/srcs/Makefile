@@ -3,11 +3,33 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#   By: azorlutu <azorlutu@student.42istanbul.com.tr>   +:+       +#+          #
+#    By: azorlutu <azorlutu@student.42istanbul.com.tr>   +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/17 16:59:21 by azorlutu          #+#    #+#              #
 #    Updated: 2026/05/17 16:59:22 by azorlutu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
+NAME  = span
+
+SRCS = main.cpp Span.cpp
+
+OBJS = $(SRCS:.cpp=.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+clean:
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re

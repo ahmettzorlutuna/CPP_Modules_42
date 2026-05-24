@@ -5,15 +5,15 @@
 #                                                     +:+ +:+         +:+      #
 #    By: azorlutu <azorlutu@student.42istanbul.com.tr>   +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/05/17 15:47:35 by azorlutu          #+#    #+#              #
-#    Updated: 2026/05/17 15:47:36 by azorlutu         ###   ########.fr        #
+#    Created: 2026/05/17 16:59:21 by azorlutu          #+#    #+#              #
+#    Updated: 2026/05/17 16:59:22 by azorlutu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-NAME  = easyfind
+NAME  = mutant_stack
 
 SRCS = main.cpp
 

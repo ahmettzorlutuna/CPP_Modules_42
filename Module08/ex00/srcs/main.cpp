@@ -13,35 +13,47 @@
 #include <iostream>
 #include <vector>
 #include <list>
+#include <deque>
 #include "../includes/easyfind.hpp"
 
 int main()
 {
-    std::vector<int> maxVerstappenVector;
-    maxVerstappenVector.push_back(33);
-    maxVerstappenVector.push_back(11);
-    maxVerstappenVector.push_back(44);
-    maxVerstappenVector.push_back(22);
+    std::vector<int> vec;
 
-    try
+    for (int i = 1; i <= 5; ++i)
     {
-        std::cout << "Finding 44 in vector: ";
-        std::vector<int>::iterator it = easyfind(maxVerstappenVector, 44);
-        std::cout << "Found: " << *it << std::endl;
+        vec.push_back(i * 10);
     }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << std::endl;
+
+    try {
+        std::vector<int>::iterator it = easyfind(vec, 30);
+        it = easyfind(vec, 99);
+    } catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
     }
-    
-    try
-    {
-        std::cout << "Finding 99 in vector: ";
-        std::vector<int>::iterator it = easyfind(maxVerstappenVector, 99);
-        std::cout << "Found: " << *it << std::endl;
+
+    std::list<int> lst;
+    lst.push_back(5);
+    lst.push_back(42);
+    lst.push_back(10);
+    lst.push_back(42);
+
+    try {
+        std::list<int>::iterator it = easyfind(lst, 42);
+        *it = 99; 
+        for(std::list<int>::iterator i = lst.begin(); i != lst.end(); ++i)
+            std::cout << *i << " ";
+        std::cout << std::endl;
+    } catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
     }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << std::endl;
+
+    std::deque<int> dq;
+
+    try {
+        std::deque<int>::iterator it = easyfind(dq, 10);
+    } catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
     }
+    return 0;
 }

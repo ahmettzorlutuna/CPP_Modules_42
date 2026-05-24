@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Span.hpp"
+#include "../includes/Span.hpp"
 
 Span::Span() : _maxSize(0) {}
 
@@ -37,32 +37,41 @@ void Span::addNumber(int number)
     _numbers.push_back(number);
 }
 
-template <typename T>
-void Span::addNumbers(T first, T last)
-{
-    while (first != last)
-    {
-        addNumber(*first);
-        ++first;
-    }
-}
-
-// [3, 6, 11, 15];
-
 unsigned int Span::shortestSpan() const
 {
-    unsigned int minSpan;
+    unsigned int diff;
 
     if(_numbers.size() < 2)
         throw NotEnoughNumbersException();
     std::vector<int> sortedNumbers = _numbers;
     std::sort(sortedNumbers.begin(), sortedNumbers.end());
-    minSpan = sortedNumbers[1] - sortedNumbers[0];
+    unsigned int minSpan = static_cast<unsigned int>(sortedNumbers[1] - sortedNumbers[0]);
     for (size_t i = 1; i < sortedNumbers.size() - 1; ++i)
     {
-        unsigned int span = sortedNumbers[i + 1] - sortedNumbers[i];
-        if (span < minSpan)
-            minSpan = span;
+        diff = static_cast<unsigned int>(sortedNumbers[i + 1] - sortedNumbers[i]);
+        if (diff < minSpan)
+            minSpan = diff;
     }
     return minSpan;
+}
+
+unsigned int Span::longestSpan() const
+{
+    if(_numbers.size() < 2)
+        throw NotEnoughNumbersException();
+
+    std::vector<int>::const_iterator intMin = std::min_element(_numbers.begin(), _numbers.end());
+    std::vector<int>::const_iterator intMax = std::max_element(_numbers.begin(), _numbers.end());
+
+    return (static_cast<unsigned int>(*intMax) - static_cast<unsigned int>(*intMin));
+}
+
+const char* Span::SpanFullException::what() const throw()
+{
+    return "Span is full. Cannot add more numbers.";
+}
+
+const char* Span::NotEnoughNumbersException::what() const throw()
+{
+    return "Not enough numbers to calculate a span.";
 }

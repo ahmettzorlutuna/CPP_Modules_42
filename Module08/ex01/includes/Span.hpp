@@ -15,6 +15,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <iterator>
 
 class Span
 {
@@ -25,8 +26,6 @@ class Span
         Span& operator=(const Span& other);
         Span(unsigned int N);
         void addNumber(int number);
-        template <typename T>
-        void addNumbers(T first, T last);
         unsigned int shortestSpan() const;
         unsigned int longestSpan() const;
         class SpanFullException : public std::exception {
@@ -37,9 +36,21 @@ class Span
             public:
                 virtual const char* what() const throw();
         };
+        template <typename T>
+        void addNumbers(T first, T last);
     private:
         std::vector<int> _numbers;
         unsigned int _maxSize;
 };
+
+template <typename T>
+void Span::addNumbers(T first, T last)
+{
+    while (first != last)
+    {
+        addNumber(*first);
+        ++first;
+    }
+}
 
 #endif
