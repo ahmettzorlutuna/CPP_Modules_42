@@ -175,6 +175,11 @@ Every exercise below uses this structure:
 
 > **Goal** — one sentence. **Key components** — the classes and files involved. **Techniques** — the C++ features being practiced. **Snippet** — 5–15 illustrative lines (always C++98). **Sample output** — what running the binary actually prints. **Gotcha** — the subtle thing that costs an hour the first time.
 
+> [!IMPORTANT]
+> **About the code snippets below.** The snippets are written to **illustrate the concept** — they are not verbatim copies of my source files. They are intentionally minimal and may differ in naming, layout, or edge-case handling from the real implementation. For the actual code of any exercise, read the files under `ModuleXX/exYY/srcs/` and `ModuleXX/exYY/includes/` directly.
+>
+> If you are a 42 student: pasting a snippet from this README into your own submission would (a) fail to satisfy the subject's full requirements, and (b) violate 42's academic integrity policy. Use the snippets to *understand the pattern*, then close this page and write your own from scratch.
+
 ---
 
 ### Module 00 — Namespaces, Classes, I/O
