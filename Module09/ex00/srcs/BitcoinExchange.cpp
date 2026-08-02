@@ -13,7 +13,7 @@
 #include "../includes/BitcoinExchange.hpp"
 
 #include <fstream>
-#include <cstdlib>
+#include <sstream>
 
 BitcoinExchange::BitcoinExchange()
 {
@@ -22,9 +22,10 @@ BitcoinExchange::BitcoinExchange()
     if (!file.is_open())
     {
         std::cerr << "Error: Could not open data.csv" << std::endl;
-        return;
+        throw std::runtime_error("Error: Could not open data.csv");
     }
     std::string line;
+    std::getline(file, line);
     while (std::getline(file, line))
     {
         size_t commaPosition = line.find(',');
@@ -34,25 +35,29 @@ BitcoinExchange::BitcoinExchange()
             std::string value = line.substr(commaPosition + 1);
             try
             {
-                float rate = std::atof(value.c_str());
+                std::istringstream ss(value);
+                float rate;
+                if (!(ss >> rate))
+                {
+                    throw std::invalid_argument("Error: Invalid value in data.csv");
+                }
+                
                 _bitcoinData[date] = rate;
             }
             catch (const std::exception &e)
             {
-                std::cerr << "Error: Invalid value in data.csv" << std::endl;
+                std::cerr << e.what() << std::endl;
             }
         }
     }
-    file.close();
 }
 
 BitcoinExchange::~BitcoinExchange()
 {
 }
 
-BitcoinExchange::BitcoinExchange(const BitcoinExchange &other)
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &other) : _bitcoinData(other._bitcoinData)
 {
-    *this = other;
 }
 
 BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other)
@@ -66,6 +71,12 @@ BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other)
 
 void BitcoinExchange::parseFile(const std::string &filename) const
 {
+    if(_bitcoinData.empty())
+    {
+        std::cerr << "Error: Bitcoin data is empty." << std::endl;
+        return;
+    }
+
     std::ifstream file(filename.c_str());
     if (!file.is_open())
     {
@@ -87,11 +98,22 @@ void BitcoinExchange::parseFile(const std::string &filename) const
             }
 
             std::string date = line.substr(0, pipePosition - 1);
+            
+            if (line.length() < pipePosition + 2)
+            {
+                throw std::invalid_argument("Error: bad input => " + line);
+            }
+
             std::string valueStr = line.substr(pipePosition + 2);
 
             isValidDate(date);
 
-            float value = std::atof(valueStr.c_str());
+            std::istringstream ss(valueStr);
+            float value;
+            if (!(ss >> value))
+            {
+                throw std::invalid_argument("Error: not valid number.");
+            }
 
             isValidValue(value);
 
@@ -104,7 +126,6 @@ void BitcoinExchange::parseFile(const std::string &filename) const
             std::cerr << e.what() << std::endl;
         }
     }
-    file.close();
 }
 
 float BitcoinExchange::getBitcoinValue(const std::string &date) const
@@ -119,7 +140,7 @@ float BitcoinExchange::getBitcoinValue(const std::string &date) const
     if (it == _bitcoinData.begin())
     {
         std::cerr << "Error: No older date available for " << date << std::endl;
-        return 0.0f;
+        throw std::invalid_argument("Error: No older date available for " + date);
     }
 
     --it;
@@ -128,14 +149,19 @@ float BitcoinExchange::getBitcoinValue(const std::string &date) const
 
 void BitcoinExchange::isValidDate(const std::string &date) const
 {
-    if (date.length() != 10 || date[4] != '-' || date[7] != '-')
+    if (date.length() != 10)
     {
         throw std::invalid_argument("Error: bad input => " + date);
     }
 
-    int year = std::atoi(date.substr(0, 4).c_str());
-    int month = std::atoi(date.substr(5, 2).c_str());
-    int day = std::atoi(date.substr(8, 2).c_str());
+    std::istringstream ss(date);
+    int year, month, day;
+    char char1, char2;
+
+    if(!(ss >> year >> char1 >> month >> char2 >> day) || char1 != '-' || char2 != '-')
+    {
+        throw std::invalid_argument("Error: bad input => " + date);
+    }
 
     if (year < 2009 || month < 1 || month > 12 || day < 1 || day > 31)
     {
