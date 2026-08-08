@@ -39,6 +39,8 @@ RPN& RPN::operator=(const RPN& other)
 
 void RPN::calculate(const std::string& expression)
 {
+    _stack = std::stack<int>();
+
     for(size_t i = 0; i < expression.length(); i++)
     {
         char c = expression[i];
