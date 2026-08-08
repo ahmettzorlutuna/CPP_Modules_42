@@ -167,6 +167,18 @@ void BitcoinExchange::isValidDate(const std::string &date) const
     {
         throw std::invalid_argument("Error: bad input => " + date);
     }
+
+    int daysInMonth[] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+    if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
+    {
+        daysInMonth[2] = 29;
+    }
+
+    if (day > daysInMonth[month])
+    {
+        throw std::invalid_argument("Error: bad input => " + date);
+    }
 }
 
 void BitcoinExchange::isValidValue(float value) const
