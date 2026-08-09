@@ -21,7 +21,6 @@ BitcoinExchange::BitcoinExchange()
 
     if (!file.is_open())
     {
-        std::cerr << "Error: Could not open data.csv" << std::endl;
         throw std::runtime_error("Error: Could not open data.csv");
     }
     std::string line;
@@ -139,7 +138,6 @@ float BitcoinExchange::getBitcoinValue(const std::string &date) const
 
     if (it == _bitcoinData.begin())
     {
-        std::cerr << "Error: No older date available for " << date << std::endl;
         throw std::invalid_argument("Error: No older date available for " + date);
     }
 
@@ -185,10 +183,10 @@ void BitcoinExchange::isValidValue(float value) const
 {
     if (value < 0)
     {
-        throw std::invalid_argument("Error: not a positive number");
+        throw std::invalid_argument("Error: not a positive number.");
     }
     if (value > 1000)
     {
-        throw std::invalid_argument("Error: too large a number");
+        throw std::invalid_argument("Error: too large a number.");
     }
 }

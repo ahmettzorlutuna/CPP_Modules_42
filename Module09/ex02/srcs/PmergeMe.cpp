@@ -16,6 +16,7 @@
 #include <stdexcept>
 #include <utility>
 #include <iomanip>
+#include <algorithm>
 
 PmergeMe::PmergeMe()
 {
@@ -25,9 +26,8 @@ PmergeMe::~PmergeMe()
 {
 }
 
-PmergeMe::PmergeMe(const PmergeMe &other)
+PmergeMe::PmergeMe(const PmergeMe &other) : _vector(other._vector), _deque(other._deque)
 {
-    *this = other;
 }
 
 PmergeMe &PmergeMe::operator=(const PmergeMe &other)
